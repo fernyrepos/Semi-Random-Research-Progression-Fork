@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <CM_Semi_Random_Research_Setting_Feature_Enabled_Label>Prohibit normal project selection</CM_Semi_Random_Research_Setting_Feature_Enabled_Label>
+  <CM_Semi_Random_Research_Setting_Feature_Enabled_Description>If disabled, the player may change research to anything, allowing them to circumvent the main feature when desired.</CM_Semi_Random_Research_Setting_Feature_Enabled_Description>
+
+  <CM_Semi_Random_Research_Setting_Reroll_All_Every_Time_Label>Reroll all choices every time</CM_Semi_Random_Research_Setting_Reroll_All_Every_Time_Label>
+  <CM_Semi_Random_Research_Setting_Reroll_All_Every_Time_Description>If disabled, projects that are not selected will stay in the list until researched.</CM_Semi_Random_Research_Setting_Reroll_All_Every_Time_Description>
+  
+  <CM_Semi_Random_Research_Setting_Show_Research_Button_Label>Show research button</CM_Semi_Random_Research_Setting_Show_Research_Button_Label>
+  <CM_Semi_Random_Research_Setting_Show_Research_Button_Description>If disabled, the vanilla research button will be hidden.</CM_Semi_Random_Research_Setting_Show_Research_Button_Description>
+  
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_Label>Allow manual rerolls</CM_Semi_Random_Research_Setting_Manual_Reroll_Label>
+  
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_None_Label>Never</CM_Semi_Random_Research_Setting_Manual_Reroll_None_Label>
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_None_Description>If selected, the player cannot manually force a reroll of the available options.</CM_Semi_Random_Research_Setting_Manual_Reroll_None_Description>
+  
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_Once_Label>Once</CM_Semi_Random_Research_Setting_Manual_Reroll_Once_Label>
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_Once_Description>If selected, the player can force a reroll of the available projects once. A new reroll is then gained every time a project is completed.</CM_Semi_Random_Research_Setting_Manual_Reroll_Once_Description>
+  
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_Always_Label>Always</CM_Semi_Random_Research_Setting_Manual_Reroll_Always_Label>
+  <CM_Semi_Random_Research_Setting_Manual_Reroll_Always_Description>If selected, the player can force a reroll of the available projects any time they desire.</CM_Semi_Random_Research_Setting_Manual_Reroll_Always_Description>
+  
+  <CM_Semi_Random_Research_Setting_Available_Projects_Count_Label>Available project count</CM_Semi_Random_Research_Setting_Available_Projects_Count_Label>
+  <CM_Semi_Random_Research_Setting_Available_Projects_Count_Description>Determines the number of available research projects the player may select from</CM_Semi_Random_Research_Setting_Available_Projects_Count_Description>
+  
+  <CM_Semi_Random_Research_Setting_Force_Lowest_Tech_Level_Label>Complete lowest tech level first </CM_Semi_Random_Research_Setting_Force_Lowest_Tech_Level_Label>
+  <CM_Semi_Random_Research_Setting_Force_Lowest_Tech_Level_Description>If selected, all projects will be from the lowest tech level available, forcing it to be complete before projects from the next level become available.</CM_Semi_Random_Research_Setting_Force_Lowest_Tech_Level_Description>
+  
+  <CM_Semi_Random_Research_Setting_Restrict_To_Faction_Tech_Level_Label>Restrict to faction tech level</CM_Semi_Random_Research_Setting_Restrict_To_Faction_Tech_Level_Label>
+  <CM_Semi_Random_Research_Setting_Restrict_To_Faction_Tech_Level_Description>If selected, only options at or below the player faction's tech level will be offered.</CM_Semi_Random_Research_Setting_Restrict_To_Faction_Tech_Level_Description>
+  
+  <CM_Semi_Random_Research_Setting_Allow_One_Higher_Tech_Project_Label>Allow one higher tech project</CM_Semi_Random_Research_Setting_Allow_One_Higher_Tech_Project_Label>
+  <CM_Semi_Random_Research_Setting_Allow_One_Higher_Tech_Project_Description>If selected, one available project's tech level may be higher than the limit.</CM_Semi_Random_Research_Setting_Allow_One_Higher_Tech_Project_Description>
+  
+  <CM_Semi_Random_Research_Setting_Allow_Switching_Research_Label>Allow switching between choices</CM_Semi_Random_Research_Setting_Allow_Switching_Research_Label>
+  <CM_Semi_Random_Research_Setting_Allow_Switching_Research_Description>If enabled, generated research options will not become unavailable when one is selected. The choices will still reroll after finishing a research project (if rerolling is enabled).
+  </CM_Semi_Random_Research_Setting_Allow_Switching_Research_Description>
+  
+  <CM_Semi_Random_Research_Setting_Prevent_Rerolled_From_Appearing_Label>Suppress projects for this many re-rolls</CM_Semi_Random_Research_Setting_Prevent_Rerolled_From_Appearing_Label>
+  <CM_Semi_Random_Research_Setting_Prevent_Rerolled_From_Appearing_Description>Prevents researches from reappearing as choices for a number of rerolls. If no other possible choices could be offered, researches may be re-offered earlier. Completing a research also counts as a reroll.
+  </CM_Semi_Random_Research_Setting_Prevent_Rerolled_From_Appearing_Description>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Label>Offer choices if they are partially researched</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Label>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Description>How partially researched projects should be handled. One example how one could get a partially researched project is by using a book.</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Description>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Never_Label>Never</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Never_Label>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Never_Description>Disable adding partially researched projects as options.</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_Never_Description>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_ReplaceChoice_Label>Replace Choice</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_ReplaceChoice_Label>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_ReplaceChoice_Description>If a research project is partially researched, it will replace another choice when new choices are offered. Gaining progress will not remove an already present choice!</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_ReplaceChoice_Description>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoice_Label>Additional Choice</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoice_Label>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoice_Description>Additional choices are made available for partially researched projects.</CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoice_Description>
+    <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoiceOnlyOnGain_Label>Additional Choice (Gain Only) </CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoiceOnlyOnGain_Label>
+  <CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoiceOnlyOnGain_Description>Additional choice is made available only when progress in the research is gained.\n\n If switching between research projects is disabled, the choice is not made available if a research is active. Make sure any book of which you want the research project to be selectable is read while you could select a project for it to be added to the list of available choices.
+  </CM_Semi_Random_Research_Setting_Progress_Adds_Choice_AddChoiceOnlyOnGain_Description>
+
+  <CM_Semi_Random_Research_Setting_Type_Of_Projects_Count_Label>Amount of projects to choose from</CM_Semi_Random_Research_Setting_Type_Of_Projects_Count_Label>
+
+  <CM_Semi_Random_Research_Setting_Static_Projects_Count_Label>Constant</CM_Semi_Random_Research_Setting_Static_Projects_Count_Label>
+  <CM_Semi_Random_Research_Setting_Static_Projects_Count_Description>The amount of projects one can choose from is constant.
+  </CM_Semi_Random_Research_Setting_Static_Projects_Count_Description>
+
+  <CM_Semi_Random_Research_Setting_Dynamic_Projects_Count_Label>Dynamic: Colonists</CM_Semi_Random_Research_Setting_Dynamic_Projects_Count_Label>
+  <CM_Semi_Random_Research_Setting_Dynamic_Projects_Count_Description>The amount of projects one can choose from is dependent on the amount of colonists.
+  </CM_Semi_Random_Research_Setting_Dynamic_Projects_Count_Description>
+
+  <CM_Semi_Random_Research_Setting_Additional_Project_Per_XColonists_Label>Additional choice per X Colonists</CM_Semi_Random_Research_Setting_Additional_Project_Per_XColonists_Label>
+  <CM_Semi_Random_Research_Setting_Additional_Project_Per_XColonists_Description>An additional option to choose from is added for each X colonists you have. 
+  </CM_Semi_Random_Research_Setting_Additional_Project_Per_XColonists_Description>
+
+  <CM_Semi_Random_Research_Setting_Max_Projects_Label>Maximum amount of available choices</CM_Semi_Random_Research_Setting_Max_Projects_Label>
+  <CM_Semi_Random_Research_Setting_Max_Projects_Description>There will never be offered more random projects than this amount to choose from. Depending on your settings in "Offer choices if they are partially researched", the total amount of offered choices can surpass this setting. This setting only limits the maximum amount of choices added by the amount of colonists you have.
+  </CM_Semi_Random_Research_Setting_Max_Projects_Description>
+  
+  <CM_Semi_Random_Research_Setting_Equalize_Cost_Label>Balance cost of offered choices</CM_Semi_Random_Research_Setting_Equalize_Cost_Label>
+  <CM_Semi_Random_Research_Setting_Equalize_Cost_Description>Randomly pick half of the randomly offered choices in a way that the average research cost of all choose-able research projects is close to the average of all possible research projects.
+
+Prevents being offered only high cost projects while low cost projects are available.
+  </CM_Semi_Random_Research_Setting_Equalize_Cost_Description>
+  
+  <CM_Semi_Random_Research_Setting_Verbose_Logging_Label>Verbose Logging</CM_Semi_Random_Research_Setting_Verbose_Logging_Label>
+  <CM_Semi_Random_Research_Setting_Verbose_Logging_Description>Enable logging of how offered research projects choices are chosen. Not likely to help much, and will spam your log. Keep disabled unless you are debugging something!
+  </CM_Semi_Random_Research_Setting_Verbose_Logging_Description>
+  <CM_Semi_Random_Research_Setting_Experimental_Anomaly_Support_Label>Experimental Anomaly Support</CM_Semi_Random_Research_Setting_Experimental_Anomaly_Support_Label>
+  <CM_Semi_Random_Research_Setting_Experimental_Anomaly_Support_Description>Enable Semi Random Research for Anomaly content. Not tested yet. Use at own risk. This option will be removed as soon as it is confirmed to be working correctly.
+  </CM_Semi_Random_Research_Setting_Experimental_Anomaly_Support_Description>
+  
+  <CM_Semi_Random_Research_Available_Projects>Available Projects</CM_Semi_Random_Research_Available_Projects>
+  <CM_Semi_Random_Research_Auto_Research_Label>Select research automatically</CM_Semi_Random_Research_Auto_Research_Label>
+  <CM_Semi_Random_Research_Reroll_Label>Reroll</CM_Semi_Random_Research_Reroll_Label>
+  <CM_Semi_Random_Research_Reroll_Spent_Label>Reroll not available for</CM_Semi_Random_Research_Reroll_Spent_Label>
+  <CM_Semi_Random_Research_Technology_Label>Technology</CM_Semi_Random_Research_Technology_Label>
+
+  <CM_Semi_Random_Research_Setting_Version>Version: </CM_Semi_Random_Research_Setting_Version>
+  <CM_Semi_Random_Unlocks_Research>Unlocks research: </CM_Semi_Random_Unlocks_Research>
+  <CM_Hidden_Research>Hidden</CM_Hidden_Research>
+
+</LanguageData>
