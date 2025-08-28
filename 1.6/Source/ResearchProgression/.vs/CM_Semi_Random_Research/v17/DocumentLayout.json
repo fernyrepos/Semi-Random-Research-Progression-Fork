@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C4CAC587-9B9B-4F98-AEB9-61DF21C038F4}|CM_Semi_Random_Research.csproj|D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\researchratetracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4CAC587-9B9B-4F98-AEB9-61DF21C038F4}|CM_Semi_Random_Research.csproj|solutionrelative:researchratetracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4CAC587-9B9B-4F98-AEB9-61DF21C038F4}|CM_Semi_Random_Research.csproj|d:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\source\\researchprogresstion\\researchtracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4CAC587-9B9B-4F98-AEB9-61DF21C038F4}|CM_Semi_Random_Research.csproj|solutionrelative:researchtracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|CM_Semi_Random_Research||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ResearchTracker.cs",
+              "DocumentMoniker": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\ResearchTracker.cs",
+              "RelativeDocumentMoniker": "ResearchTracker.cs",
+              "ToolTip": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\ResearchTracker.cs",
+              "RelativeToolTip": "ResearchTracker.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAawCwAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T03:20:22.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ResearchRateTracker.cs",
+              "DocumentMoniker": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\ResearchRateTracker.cs",
+              "RelativeDocumentMoniker": "ResearchRateTracker.cs",
+              "ToolTip": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\ResearchRateTracker.cs",
+              "RelativeToolTip": "ResearchRateTracker.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAmwDUAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T03:21:28.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CM_Semi_Random_Research",
+              "DocumentMoniker": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\CM_Semi_Random_Research.csproj",
+              "RelativeDocumentMoniker": "CM_Semi_Random_Research.csproj",
+              "ToolTip": "D:\\games\\steam game\\steamapps\\workshop\\content\\294100\\3455432792\\Source\\ResearchProgresstion\\CM_Semi_Random_Research.csproj",
+              "RelativeToolTip": "CM_Semi_Random_Research.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-21T03:21:16.884Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
