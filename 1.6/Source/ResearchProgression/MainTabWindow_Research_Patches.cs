@@ -65,7 +65,6 @@ namespace CM_Semi_Random_Research
                 {
                     ___lockedReasons.Add("Semi Random Research is active.");
                 }
-                SemiRandomResearchUtility.is_anomaly_tab = ___curTabInt == ResearchTabDefOf.Anomaly;
             }
 
             //Ugly alternative prefix that avoids the need for the Transpiler below. Used to patch mods that yoinked the MainTabWindow_Research class.

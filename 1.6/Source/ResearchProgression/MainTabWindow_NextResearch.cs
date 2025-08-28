@@ -548,34 +548,39 @@ namespace CM_Semi_Random_Research
             float researchProjectGapHeight = 12.0f;
             float buttonHeight = 48f;
             float techLevelHeaderHeight = 28f;
-            
+
             // Footer dimensions
-            float footerPaddingTop = 12f;     
-            float footerHeight = 40f;         
-            float footerPaddingBottom = 12f;  
+            float footerPaddingTop = 12f;
+            float footerHeight = 40f;
+            float footerPaddingBottom = 12f;
             float totalFooterHeight = footerPaddingTop + footerHeight + footerPaddingBottom;
-            float footerButtonWidth = 120f;   
-            float buttonSpacing = 20f;        
-            
+            float footerButtonWidth = 120f;
+            float buttonSpacing = 20f;
+
             // Check if we have an active research project
             bool hasActiveNonAnomalyResearch = false;
-            bool hasActiveAnomalyResearch = false;
+            bool hasActiveAnomalyResearchBasic = false;
+            bool hasActiveAnomalyResearchAdvanced = false;
             ResearchProjectDef activeNonAnomalyProject = null;
-            ResearchProjectDef activeAnomalyProject = null;
-            
+            ResearchProjectDef activeAnomalyProjectBasic = null;
+            ResearchProjectDef activeAnomalyProjectAdvanced = null;
+
             if (researchTracker != null && researchTracker.CurrentProject != null && researchTracker.CurrentProject.Count > 0)
             {
                 // Get active normal research
                 activeNonAnomalyProject = researchTracker.CurrentProject.FirstOrDefault(p => p.knowledgeCategory == null);
                 hasActiveNonAnomalyResearch = activeNonAnomalyProject != null;
-                
+
                 // Get active anomaly research
-                activeAnomalyProject = researchTracker.CurrentProject.FirstOrDefault(p => p.knowledgeCategory != null);
-                hasActiveAnomalyResearch = activeAnomalyProject != null;
+                activeAnomalyProjectBasic = researchTracker.CurrentProject.FirstOrDefault(p => p.knowledgeCategory == KnowledgeCategoryDefOf.Basic);
+                hasActiveAnomalyResearchBasic = activeAnomalyProjectBasic != null;
+
+                activeAnomalyProjectAdvanced = researchTracker.CurrentProject.FirstOrDefault(p => p.knowledgeCategory == KnowledgeCategoryDefOf.Advanced);
+                hasActiveAnomalyResearchAdvanced = activeAnomalyProjectAdvanced != null;
             }
-            
+
             // If no active research from the mod, check vanilla research
-            if (!hasActiveNonAnomalyResearch && Find.ResearchManager.GetProject() != null && 
+            if (!hasActiveNonAnomalyResearch && Find.ResearchManager.GetProject() != null &&
                 Find.ResearchManager.GetProject().knowledgeCategory == null)
             {
                 activeNonAnomalyProject = Find.ResearchManager.GetProject();
@@ -583,25 +588,35 @@ namespace CM_Semi_Random_Research
             }
 
             // Get anomaly projects (for later use)
-            var anomalyProjects = SemiRandomResearchMod.settings.experimentalAnomalySupport ? 
-                currentAvailableProjects.Where(p => p.knowledgeCategory != null).ToList() : 
+            var anomalyProjectsBasic = SemiRandomResearchMod.settings.experimentalAnomalySupport ?
+                currentAvailableProjects.Where(p => p.knowledgeCategory == KnowledgeCategoryDefOf.Basic).ToList() :
                 new List<ResearchProjectDef>();
-            
+
+            var anomalyProjectsAdvanced = SemiRandomResearchMod.settings.experimentalAnomalySupport ?
+                currentAvailableProjects.Where(p => p.knowledgeCategory == KnowledgeCategoryDefOf.Advanced).ToList() :
+                new List<ResearchProjectDef>();
+
             // If we have active anomaly research, only show that
-            if (hasActiveAnomalyResearch && anomalyProjects.Any())
+            if (hasActiveAnomalyResearchBasic && anomalyProjectsBasic.Any())
             {
-                anomalyProjects = new List<ResearchProjectDef> { activeAnomalyProject };
+                anomalyProjectsBasic = new List<ResearchProjectDef> { activeAnomalyProjectBasic };
             }
-            
+
+            if (hasActiveAnomalyResearchAdvanced && anomalyProjectsAdvanced.Any())
+            {
+                anomalyProjectsAdvanced = new List<ResearchProjectDef> { activeAnomalyProjectAdvanced };
+            }
+
             // Check if we have anomaly projects to display
-            bool hasAnomalyToShow = anomalyProjects.Any();
-            
+            bool hasAnomalyToShowBasic = anomalyProjectsBasic.Any();
+            bool hasAnomalyToShowAdvanced = anomalyProjectsAdvanced.Any();
+
             // Selected project name and tech levels - only show if not actively researching
             if (!hasActiveNonAnomalyResearch)
             {
                 Text.Font = GameFont.Medium;
                 GenUI.SetLabelAlign(TextAnchor.MiddleLeft);
-                
+
                 // Main label rect (left side)
                 float labelWidth = position.width * 0.4f;
                 Rect mainLabelRect = new Rect(0f, currentY, labelWidth, mainLabelHeight);
@@ -611,7 +626,7 @@ namespace CM_Semi_Random_Research
                 Text.Font = GameFont.Small;
                 float techInfoX = labelWidth + 20f;
                 float techInfoWidth = position.width - techInfoX;
-                
+
                 // Colony tech level
                 TechLevel colonyTech = Faction.OfPlayer.def.techLevel;
                 Rect colonyTechRect = new Rect(techInfoX, currentY, techInfoWidth * 0.5f, mainLabelHeight);
@@ -629,17 +644,17 @@ namespace CM_Semi_Random_Research
                 GenUI.ResetLabelAlign();
                 currentY += mainLabelHeight + 4f;
             }
-            
+
             // If we have an active non-anomaly research project, show the research stats at the top
             if (hasActiveNonAnomalyResearch)
             {
                 // Calculate research rate stats section dimensions - adjust height when anomaly research is present
                 float rateStatsHeight = 300f; // Fixed height regardless of anomaly presence
                 float rateStatsPadding = 30f;
-                
+
                 // Create a background for the active research section
                 Rect activeResearchRect = new Rect(0f, currentY, position.width, rateStatsHeight);
-                
+
                 // Draw active research header
                 Text.Font = GameFont.Medium;
                 Text.Anchor = TextAnchor.MiddleLeft;
@@ -647,7 +662,7 @@ namespace CM_Semi_Random_Research
                 Rect activeHeaderRect = new Rect(activeResearchRect.x + 10f, currentY + 6f, activeResearchRect.width - 20f, 30f);
                 Widgets.Label(activeHeaderRect, "Currently Researching");
                 Text.Font = GameFont.Small;
-                
+
                 // Draw research rate UI
                 Rect rateStatsRect = new Rect(
                     activeResearchRect.x + 10f,
@@ -656,11 +671,11 @@ namespace CM_Semi_Random_Research
                     activeResearchRect.height - activeHeaderRect.height - 10f
                 );
                 DrawResearchRateUI(rateStatsRect, activeNonAnomalyProject);
-                
+
                 // Update current Y position
                 currentY += rateStatsHeight + rateStatsPadding;
             }
-            
+
             // Adjust the scroll view to account for the header and footer
             Rect scrollOutRect = new Rect(0f, currentY, position.width, position.height - (totalFooterHeight + currentY));
             Rect scrollViewRect = new Rect(0f, 0f, scrollOutRect.width - 20f, leftScrollViewHeight);
@@ -668,7 +683,7 @@ namespace CM_Semi_Random_Research
             Widgets.BeginScrollView(scrollOutRect, ref leftScrollPosition, scrollViewRect);
 
             currentY = 0f;
-            
+
             // Only show non-anomaly research options when not actively researching a normal project
             if (!hasActiveNonAnomalyResearch)
             {
@@ -694,11 +709,11 @@ namespace CM_Semi_Random_Research
                     float headerAnimProgress = 1f;
                     if (techLevelHeaderProgress.TryGetValue(techGroup.Key, out float progress))
                         headerAnimProgress = progress;
-                    
+
                     // Skip drawing if not yet visible at all
                     if (headerAnimProgress <= 0.01f)
                         continue;
-                    
+
                     // Remember current color and apply fade
                     Color originalColor = GUI.color;
                     GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, headerAnimProgress);
@@ -708,7 +723,7 @@ namespace CM_Semi_Random_Research
                     Color techColor = GetTechLevelColor(techGroup.Key);
                     techColor.a *= headerAnimProgress; // Apply animation alpha
                     GUI.color = techColor;
-                    
+
                     Rect headerRect = new Rect(0f, currentY, scrollViewRect.width, techLevelHeaderHeight);
                     Text.Anchor = TextAnchor.MiddleLeft;
                     Widgets.Label(headerRect, techGroup.Key.ToStringHuman().CapitalizeFirst());
@@ -725,13 +740,18 @@ namespace CM_Semi_Random_Research
                     }
                 }
             }
-            
+
             // Handle Anomaly Research Section - show at the bottom (if not on research graph screen)
             // OR after the graph when on research screen
-            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShow)
+            string anomaly_name;
+            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShowBasic || hasAnomalyToShowAdvanced)
             {
+                // Get anomaly research name from the research tab description.
+                // This allows us to support mods like ambiguous anomaly
+
                 // Only show anomaly section if there are any anomaly projects
                 // Add divider before anomaly section if we're not starting from the top
+                // Create a smaller header for anomaly research - like tech level headers
                 if (currentY > 0)
                 {
                     // Add 60px extra space before the anomaly section when actively researching
@@ -739,11 +759,41 @@ namespace CM_Semi_Random_Research
                     {
                         currentY += 300f; // Increased from 60f to 120f for more space
                     }
-                    
+
                     currentY += gapHeight;
                     GUI.color = new Color(0.4f, 0.4f, 0.4f, 0.4f);
                     Widgets.DrawLineHorizontal(0f, currentY, scrollViewRect.width);
                     GUI.color = Color.white;
+                    currentY += gapHeight;
+                }
+                
+            }
+            
+            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShowBasic)
+            {
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Rect anomalyHeaderRect = new Rect(0f, currentY, scrollViewRect.width, techLevelHeaderHeight);
+                
+                Color anomalyColor = new Color(0.65f, 0.35f, 0.5f); // Less saturated light purple
+                GUI.color = anomalyColor;
+                Widgets.Label(anomalyHeaderRect, "Anomaly - Basic");
+                GUI.color = Color.white;
+                currentY += techLevelHeaderHeight;
+                
+                // Show all anomaly projects (or just the active one)
+                foreach (ResearchProjectDef projectDef in anomalyProjectsBasic.OrderBy(p => p.CostApparent))
+                {
+                    Rect buttonRect = new Rect(0f, currentY, scrollViewRect.width, buttonHeight);
+                    DrawResearchButton(ref buttonRect, projectDef);
+                    currentY += buttonHeight + researchProjectGapHeight;
+                }
+            }
+
+            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShowAdvanced)
+            {
+                if (hasActiveAnomalyResearchBasic)
+                {
                     currentY += gapHeight;
                 }
                 
@@ -753,14 +803,14 @@ namespace CM_Semi_Random_Research
                 Rect anomalyHeaderRect = new Rect(0f, currentY, scrollViewRect.width, techLevelHeaderHeight);
                 
                 // Use less saturated purple color for anomaly header
-                Color anomalyColor = new Color(0.45f, 0.35f, 0.5f); // Less saturated purple
+                Color anomalyColor = new Color(0.45f, 0.35f, 0.5f); // Less saturated dark purple
                 GUI.color = anomalyColor;
-                Widgets.Label(anomalyHeaderRect, "Anomaly");
+                Widgets.Label(anomalyHeaderRect, "Anomaly - Advanced");
                 GUI.color = Color.white;
                 currentY += techLevelHeaderHeight;
                 
                 // Show all anomaly projects (or just the active one)
-                foreach (ResearchProjectDef projectDef in anomalyProjects.OrderBy(p => p.CostApparent))
+                foreach (ResearchProjectDef projectDef in anomalyProjectsAdvanced.OrderBy(p => p.CostApparent))
                 {
                     Rect buttonRect = new Rect(0f, currentY, scrollViewRect.width, buttonHeight);
                     DrawResearchButton(ref buttonRect, projectDef);
@@ -814,7 +864,7 @@ namespace CM_Semi_Random_Research
                 // In the footer section, change from a fixed 3-button layout to a dynamic layout
                 // We need to check if we need to show a cancel button
                 bool showCancelButton = SemiRandomResearchMod.settings.allowSwitchingResearch && 
-                    (hasActiveNonAnomalyResearch || hasActiveAnomalyResearch);
+                    (hasActiveNonAnomalyResearch || hasActiveAnomalyResearchBasic || hasActiveAnomalyResearchAdvanced);
 
                 // Calculate total buttons and adjust layout
                 int buttonCount = 3; // Default: Research Tree, Reroll, Research
@@ -872,10 +922,20 @@ namespace CM_Semi_Random_Research
                 // Draw cancel button if needed
                 if (showCancelButton)
                 {
+                    ResearchProjectDef projectToCancel;
                     // Determine which project would be canceled
-                    ResearchProjectDef projectToCancel = hasActiveNonAnomalyResearch ? 
-                        activeNonAnomalyProject : activeAnomalyProject;
-                    
+                    if (hasActiveNonAnomalyResearch)
+                    {
+                        projectToCancel = activeNonAnomalyProject;
+                    }
+                    else if (hasActiveAnomalyResearchBasic)
+                    {
+                        projectToCancel = activeAnomalyProjectBasic;
+                    }
+                    else
+                    {
+                        projectToCancel = activeAnomalyProjectAdvanced;
+                    }
                     KnowledgeCategoryDef categoryToCancel = projectToCancel?.knowledgeCategory;
                     
                     if (Widgets.ButtonText(cancelButtonRect, "Cancel Research"))

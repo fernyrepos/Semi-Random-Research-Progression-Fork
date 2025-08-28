@@ -43,7 +43,7 @@ namespace CM_Semi_Random_Research
             {
                 return false;
             }
-            return rpd.baseCost <= 0 || rpd.knowledgeCost > 0;
+            return rpd.knowledgeCategory == KnowledgeCategoryDefOf.Basic || rpd.knowledgeCategory == KnowledgeCategoryDefOf.Advanced;
         }
 
         public static bool IsHiddenResearch(ResearchProjectDef rpd)
