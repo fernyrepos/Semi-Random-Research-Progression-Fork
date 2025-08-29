@@ -26,9 +26,12 @@ namespace CM_Semi_Random_Research
 
         private Dictionary<string,bool> rerolled = new Dictionary<string, bool>();
         private Dictionary<string, List<ResearchProjectDef>> projectDefsCacheByType = new Dictionary<string, List<ResearchProjectDef>>();
+        private Dictionary<string, List<ResearchProjectDef>> currentProjectDefsCacheByType = new Dictionary<string, List<ResearchProjectDef>>();
         private HashSet<string> completedTypes = new HashSet<string>();
 
         private int tickCounter = 0;
+        private int tickShortOffset = 10;
+        private int tickOffset = 360;
         private int previousDefCount = 0;
         private bool additionalProjectsRefresh = true;
 
@@ -37,9 +40,14 @@ namespace CM_Semi_Random_Research
 
         private Dictionary<string, string> loggedMessages = new Dictionary<string, string>();
 
+        private List<KnowledgeCategoryDef> all_types;
+
         public ResearchTracker(World world) : base(world)
         {
             previousDefCount = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Count;
+
+            all_types = DefDatabase<KnowledgeCategoryDef>.AllDefsListForReading.ListFullCopy();
+            all_types.Add(null);
         }
 
         public override void FinalizeInit(bool fromLoad)
@@ -132,72 +140,83 @@ namespace CM_Semi_Random_Research
         {
             base.WorldComponentTick();
 
-
-            List<KnowledgeCategoryDef> all_types = DefDatabase<KnowledgeCategoryDef>.AllDefsListForReading.ListFullCopy();
-            all_types.Add(null);
-
-            foreach (KnowledgeCategoryDef type in all_types)
+            // Check if research is done
+            // We don't need this EVERY tick, but it should be somewhat frequent
+            if (tickCounter % tickShortOffset == 0)
             {
-                List<ResearchProjectDef> currentProjectOfType = currentProjects.Where(x => x.knowledgeCategory == type).ToList();
-                bool finished = !currentProjectOfType.Empty() && currentProjectOfType.Any(x => x.IsFinished);
-
-                if (finished)
+                foreach (KnowledgeCategoryDef type in all_types)
                 {
-                    ConsiderProjectFinished(currentProjectOfType.First(x => x.IsFinished));
-                }
-
-                if (currentProjectOfType.Empty() || finished)
-                {
-                    if (autoResearch)
+                    string typeKey = type == null ? "null" : type.defName;
+                    List<ResearchProjectDef> currentProjectOfType = new List<ResearchProjectDef>();
+                    if (currentProjectDefsCacheByType.ContainsKey(typeKey))
                     {
-                        if (tickCounter % 360 == 0 || finished)
+                        currentProjectOfType = currentProjectDefsCacheByType[typeKey];
+                    }
+                    bool finished = false;
+                    ResearchProjectDef finishedProject = null;
+                    if (!currentProjectOfType.Empty())
+                    {
+                        finishedProject = currentProjectOfType.FirstOrDefault(x => x.IsFinished);
+                    }
+                    if (finishedProject != null)
+                    {
+                        finished = true;
+                        ConsiderProjectFinished(finishedProject);
+                    }
+
+                    if (currentProjectOfType.Empty() || finished)
+                    {
+                        if (autoResearch && (finished || tickCounter == 0))
                         {
                             List<ResearchProjectDef> possibleProjectsOfType = GetCurrentlyAvailableProjects().Where(x => x.knowledgeCategory == type).ToList();
 
-                            if(!possibleProjectsOfType.Empty())
+                            if (!possibleProjectsOfType.Empty())
                             {
                                 SetCurrentProject(possibleProjectsOfType.First(), type);
                                 currentProjectOfType = currentProjects.Where(x => x.knowledgeCategory == type).ToList();
                             }
                         }
                     }
-                }
-                ResearchProjectDef activeProject = Find.ResearchManager.GetProject(type);
 
-                // This should not be required, but there are some mods that stop the current research. This restores them.  
-                if (activeProject == null && !currentProjectOfType.Empty() && currentProjectOfType.First().CanStartNow)
-                {
-                    SetCurrentProject(currentProjectOfType.First(), type);
+                    if (tickCounter == 0)
+                    {
+                        // This is a fairly expensive call
+                        ResearchProjectDef activeProject = Find.ResearchManager.GetProject(type);
+
+                        // This should not be required, but there are some mods that stop the current research. This restores them.  
+                        if (activeProject == null && !currentProjectOfType.Empty() && currentProjectOfType.First().CanStartNow)
+                        {
+                            SetCurrentProject(currentProjectOfType.First(), type);
+                        }
+                        else if (activeProject != null && (currentProjectOfType.Empty() || !currentProjectOfType.Contains(activeProject)) && activeProject.CanStartNow)
+                        {
+                            if (!SemiRandomResearchMod.settings.featureEnabled)
+                            {
+                                SetCurrentProject(activeProject, type);
+                            }
+                            else if (currentProjectOfType.Empty() && currentAvailableProjects.Contains(activeProject))
+                            {
+                                SetCurrentProject(activeProject, type);
+                            }
+                            else if (!currentProjectOfType.Empty())
+                            {
+                                SetCurrentProject(currentProjectOfType.First(), type);
+                            }
+                            else
+                            {
+                                LogIfNewMessage("WorldTickUnexpectedState" + type, $"Error? Set as activeProject: {activeProject.LabelCap} currentAvailableProjects: {currentAvailableProjects.Count} and of type {type}: {currentAvailableProjects.Where(x => x.knowledgeCategory == type).Count()}");
+                                SetCurrentProject(activeProject, type);
+                            }
+                        }
+                    }
+
+                    if (SemiRandomResearchMod.settings.progressAddsChoice == ProgressAddsChoice.Never && additionalAvailableProjects.Any())
+                    {
+                        additionalAvailableProjects.Clear();
+                    }
+                    tickCounter = (tickCounter + 1) % tickOffset;
                 }
-                else if (activeProject != null && (currentProjectOfType.Empty() || !currentProjectOfType.Contains(activeProject)) && activeProject.CanStartNow)
-                {
-                    if (!SemiRandomResearchMod.settings.featureEnabled)
-                    {
-                        SetCurrentProject(activeProject,type);
-                    }
-                    else if (currentProjectOfType.Empty() && currentAvailableProjects.Contains(activeProject))
-                    {
-                        SetCurrentProject(activeProject,type);
-                    }
-                    else if(!currentProjectOfType.Empty())
-                    {
-                        SetCurrentProject(currentProjectOfType.First(), type);
-                    }
-                    else 
-                    {
-                        LogIfNewMessage("WorldTickUnexpectedState"+type, $"Error? Set as activeProject: {activeProject.LabelCap} currentAvailableProjects: {currentAvailableProjects.Count} and of type {type}: {currentAvailableProjects.Where(x=>x.knowledgeCategory == type).Count()}");
-                        SetCurrentProject(activeProject, type);
-                    }
-                }
-                
             }
-
-            if(SemiRandomResearchMod.settings.progressAddsChoice == ProgressAddsChoice.Never && additionalAvailableProjects.Any())
-            {
-                additionalAvailableProjects.Clear();
-            }
-
-            tickCounter = (tickCounter + 1) % 360;
         }
 
         public List<ResearchProjectDef> GetCurrentlyAvailableProjects()
@@ -559,6 +578,7 @@ namespace CM_Semi_Random_Research
             {
                 Find.ResearchManager.StopProject(Find.ResearchManager.GetProject(type));
             }
+            currentProjectDefsCacheByType[typeKey] = currentProjects.Where(x => x.knowledgeCategory == type).ToList();
         }
 
         public void ManageNotChosen(KnowledgeCategoryDef type)
