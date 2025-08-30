@@ -777,7 +777,7 @@ namespace CM_Semi_Random_Research
                 
                 Color anomalyColor = new Color(0.65f, 0.35f, 0.5f); // Less saturated light purple
                 GUI.color = anomalyColor;
-                Widgets.Label(anomalyHeaderRect, "Dark Research");
+                Widgets.Label(anomalyHeaderRect, "Dark research");
                 GUI.color = Color.white;
                 currentY += techLevelHeaderHeight;
                 
@@ -805,7 +805,7 @@ namespace CM_Semi_Random_Research
                 // Use less saturated purple color for anomaly header
                 Color anomalyColor = new Color(0.45f, 0.35f, 0.5f); // Less saturated dark purple
                 GUI.color = anomalyColor;
-                Widgets.Label(anomalyHeaderRect, "Advanced Dark Research");
+                Widgets.Label(anomalyHeaderRect, "Advanced dark research");
                 GUI.color = Color.white;
                 currentY += techLevelHeaderHeight;
                 
