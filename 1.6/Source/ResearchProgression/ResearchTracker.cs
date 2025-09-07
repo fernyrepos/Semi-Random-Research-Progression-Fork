@@ -209,14 +209,13 @@ namespace CM_Semi_Random_Research
                             }
                         }
                     }
-
-                    if (SemiRandomResearchMod.settings.progressAddsChoice == ProgressAddsChoice.Never && additionalAvailableProjects.Any())
-                    {
-                        additionalAvailableProjects.Clear();
-                    }
-                    tickCounter = (tickCounter + 1) % tickOffset;
+                }
+                if (SemiRandomResearchMod.settings.progressAddsChoice == ProgressAddsChoice.Never && additionalAvailableProjects.Any())
+                {
+                    additionalAvailableProjects.Clear();
                 }
             }
+            tickCounter = (tickCounter + 1) % tickOffset;
         }
 
         public List<ResearchProjectDef> GetCurrentlyAvailableProjects()
