@@ -55,6 +55,9 @@ namespace CM_Semi_Random_Research
 
         private Dictionary<TechLevel, float> techLevelHeaderProgress = new Dictionary<TechLevel, float>();
 
+        // Check if anomaly exists and if the setting is enabled
+        private bool anomalyContentEnabled = (KnowledgeCategoryDefOf.Basic != null) && SemiRandomResearchMod.settings.experimentalAnomalySupport;
+
         private bool ColonistsHaveResearchBench
         {
             get
@@ -587,12 +590,13 @@ namespace CM_Semi_Random_Research
                 hasActiveNonAnomalyResearch = true;
             }
 
+
             // Get anomaly projects (for later use)
-            var anomalyProjectsBasic = SemiRandomResearchMod.settings.experimentalAnomalySupport ?
+            var anomalyProjectsBasic = anomalyContentEnabled ?
                 currentAvailableProjects.Where(p => p.knowledgeCategory == KnowledgeCategoryDefOf.Basic).ToList() :
                 new List<ResearchProjectDef>();
 
-            var anomalyProjectsAdvanced = SemiRandomResearchMod.settings.experimentalAnomalySupport ?
+            var anomalyProjectsAdvanced = anomalyContentEnabled ?
                 currentAvailableProjects.Where(p => p.knowledgeCategory == KnowledgeCategoryDefOf.Advanced).ToList() :
                 new List<ResearchProjectDef>();
 
@@ -744,7 +748,7 @@ namespace CM_Semi_Random_Research
             // Handle Anomaly Research Section - show at the bottom (if not on research graph screen)
             // OR after the graph when on research screen
             string anomaly_name;
-            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShowBasic || hasAnomalyToShowAdvanced)
+            if (anomalyContentEnabled && (hasAnomalyToShowBasic || hasAnomalyToShowAdvanced))
             {
                 // Get anomaly research name from the research tab description.
                 // This allows us to support mods like ambiguous anomaly
@@ -769,7 +773,7 @@ namespace CM_Semi_Random_Research
                 
             }
             
-            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShowBasic)
+            if (anomalyContentEnabled && hasAnomalyToShowBasic)
             {
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleLeft;
@@ -790,7 +794,7 @@ namespace CM_Semi_Random_Research
                 }
             }
 
-            if (SemiRandomResearchMod.settings.experimentalAnomalySupport && hasAnomalyToShowAdvanced)
+            if (anomalyContentEnabled && hasAnomalyToShowAdvanced)
             {
                 if (hasActiveAnomalyResearchBasic)
                 {

@@ -142,7 +142,7 @@ namespace CM_Semi_Random_Research
 
             // Check if research is done
             // We don't need this EVERY tick, but it should be somewhat frequent
-            if (tickCounter % tickShortOffset == 0)
+            if ((tickCounter % tickShortOffset) == 0)
             {
                 foreach (KnowledgeCategoryDef type in all_types)
                 {
@@ -166,7 +166,7 @@ namespace CM_Semi_Random_Research
 
                     if (currentProjectOfType.Empty() || finished)
                     {
-                        if (autoResearch && (finished || tickCounter == 0))
+                        if (autoResearch && (finished || (tickCounter % tickOffset) == 0))
                         {
                             List<ResearchProjectDef> possibleProjectsOfType = GetCurrentlyAvailableProjects().Where(x => x.knowledgeCategory == type).ToList();
 
@@ -178,7 +178,7 @@ namespace CM_Semi_Random_Research
                         }
                     }
 
-                    if (tickCounter == 0)
+                    if ((tickCounter % tickOffset) == 0)
                     {
                         // This is a fairly expensive call
                         ResearchProjectDef activeProject = Find.ResearchManager.GetProject(type);
@@ -209,14 +209,13 @@ namespace CM_Semi_Random_Research
                             }
                         }
                     }
-
-                    if (SemiRandomResearchMod.settings.progressAddsChoice == ProgressAddsChoice.Never && additionalAvailableProjects.Any())
-                    {
-                        additionalAvailableProjects.Clear();
-                    }
-                    tickCounter = (tickCounter + 1) % tickOffset;
+                }
+                if (SemiRandomResearchMod.settings.progressAddsChoice == ProgressAddsChoice.Never && additionalAvailableProjects.Any())
+                {
+                    additionalAvailableProjects.Clear();
                 }
             }
+            tickCounter = (tickCounter + 1) % tickOffset;
         }
 
         public List<ResearchProjectDef> GetCurrentlyAvailableProjects()
